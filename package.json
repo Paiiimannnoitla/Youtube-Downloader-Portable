@@ -13,7 +13,6 @@
     "electron": "^22.0.0"
   },
   "dependencies": {
-    "youtube-dl-exec": "^2.4.7"
   },
   "build": {
     "win": {
