@@ -1,7 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog, session } = require('electron')
 const path = require('path')
 const fs = require('fs')
-
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 app.allowRendererProcessReuse = false
 const debug = true
@@ -25,7 +24,8 @@ const WindowMain = async () => {
 	}
     win.loadFile('index.html')	
 }
-const init = async() =>{  
+const init = () =>{  
+	require('./script.js')
 	app.whenReady().then(() => {
 		WindowMain()
 		// Prevent from multiple windows create
