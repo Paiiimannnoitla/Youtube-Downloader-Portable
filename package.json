@@ -1,5 +1,23 @@
 {
+  "name": "YoutubeDownloaderPortable",
+  "productName": "YoutubeDownloader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Paiiimannnoitla",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^22.0.0"
+  },
   "dependencies": {
     "youtube-dl-exec": "^2.4.7"
+  },
+  "build": {
+    "win": {
+      "requestedExecutionLevel": "highestAvailable"
+    }
   }
 }

@@ -7,4 +7,4 @@
 ---
 	## 2023.09.04		version 0.0.0 -- main
 	-- Infrastructure building
-	
+	-- Homepage setting
