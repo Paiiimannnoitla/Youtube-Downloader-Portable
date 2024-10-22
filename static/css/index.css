@@ -1,0 +1,45 @@
+div{
+	margin:				0;
+	outline-style:		solid;
+	outline-width:		1px;
+	outline-color:		gray;
+}
+p{
+	margin:				0;
+}
+table,td{
+	border:				1px solid;
+}
+#bottom-area{
+	margin:				auto;
+	display:			flex;
+}
+#toolbar{
+	height:				95vh;
+	width:				10vw;
+	text-align:			center;			
+}
+#main-display{
+	height:				95vh;
+	width:				90vw;
+}
+#info-display-div{
+	max-height:			55vh;
+	overflow-x:			scroll;
+}
+.main-area{
+	height:				75vh;
+}
+.mode-area{
+	height:				20vh;
+}
+.postage-textarea{
+	width:				80vw;
+	height:				20vh;
+}
+.scroll{
+	overflow-y:			scroll;
+}
+.hide{
+	display:			none;
+}
