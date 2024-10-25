@@ -38,6 +38,12 @@ funcArr['test'] = async()=>{
 }
 
 // Preload data
+preloadArr['test'] = async()=>{
+	console.log('test function preload phase')
+	
+}
+// Loaded Function
 loadArr['test'] = async()=>{
-	ttArr['test-channel'] = 'preload data test'
+	console.log('test function load phase')
+	ttArr['test-channel'] = 'load data test'
 }

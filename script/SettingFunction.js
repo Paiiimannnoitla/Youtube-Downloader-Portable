@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const { env } = require('./extension.js')
 // Page Loading
+/*
 ipcMain.handle('st-load',(event)=>{
 	const output = new Promise(async(resolve)=>{
 		const config = await env()
@@ -55,5 +56,5 @@ ipcMain.handle('st-load',(event)=>{
 		
 	})
 	return output
-})
+})*/
 

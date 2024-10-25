@@ -2,6 +2,72 @@ const {ipcMain,dialog} = require('electron')
 const fs = require('fs')
 const path = require('path')
 const { env } = require('./extension.js')
+const { readdir } = require('fs/promises')
+
+const templatePath = './template'
+// Initialization loading
+ipcMain.handle('gl-init',async(event,arr='')=>{
+	const promiseChain = []
+	const data = {}
+	if(arr){
+		
+	}else{
+		promiseChain[0] = new Promise(async(resolve)=>{
+			const htmlSlicer = (str)=>{
+				const filename = str.split('.')
+				const ext = filename[filename.length-1]
+				if(ext == 'html'){
+					filename.pop()
+					return filename.join('.')
+				}else{
+					return false
+				}
+			}
+			const templateArr = {}
+			const initArr = await readdir(templatePath)
+			if(initArr){
+				const htmlArr = []
+				for(var i=0;i<initArr.length;i++){
+					const e = initArr[i]
+					const html = htmlSlicer(e)
+					if(html){
+						htmlArr[htmlArr.length] = html
+					}
+				}
+				
+				const subChain = []
+				for(var i=0;i<htmlArr.length;i++){
+					const dirname = htmlArr[i]
+					subChain[i] = new Promise(async(subRes)=>{
+						const subPath = templatePath + '/' + dirname
+						const subArr = await readdir(subPath)
+						if(subArr){
+							const pageArr = []
+							for(var s=0;s<subArr.length;s++){
+								const e = subArr[s]
+								const html = htmlSlicer(e)
+								if(html){
+									pageArr[pageArr.length] = html
+								}
+							}
+							templateArr[dirname] = pageArr
+							subRes(true)
+						}
+					})
+				}
+				const finished = await Promise.all(subChain)
+				if(finished){
+					data.template = templateArr
+					resolve(true)
+				}
+			}
+		})
+	}
+	const output = await Promise.all(promiseChain)
+	if(output){
+		return data
+	}
+})
 // Page Loading
 ipcMain.handle('gl-load',async(event,arr)=>{
 	const { name } = arr

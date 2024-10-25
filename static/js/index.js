@@ -1,9 +1,14 @@
 //let currSection = ''
 const loadArr = []
+const preloadArr = []
 const funcArr = []
 const pageArr = []
 let currFunc = ''
 let currPage = ''
+const globalArr = {
+	preload:'',status:{},data:{}
+}
+
 document.getElementById('toolbar').addEventListener('click',async(event)=>{
 	const isOption = have(event,'tb-option')
 	if(isOption){
@@ -13,7 +18,7 @@ document.getElementById('toolbar').addEventListener('click',async(event)=>{
 		
 		const config = await window.gl.config()
 		
-		loadArr[id]()
+		preloadArr[id]()
 		
 		arr['name'] = id
 		const structure = await window.gl.load(arr)
@@ -21,15 +26,19 @@ document.getElementById('toolbar').addEventListener('click',async(event)=>{
 		arr['name'] = id + '/' + config[id + '-homepage']		
 		const homepage = await window.gl.load(arr)
 		
+		
 		document.getElementById('main-display').innerHTML = structure
 		if(config){		
 			document.querySelector('.main-area').innerHTML = homepage
+			loadArr[id]()
 			
 			currFunc = document.querySelector('.display-area').getAttribute('name')
 			currPage = document.querySelector('.page-area').getAttribute('name')
 						
 			autoload(config)
 		}
+		
+		
 		funcArr[id]()
 		pageArr[id]()
 	}
@@ -143,6 +152,19 @@ document.getElementById('main-display').addEventListener('click',async(event)=>{
 })
 
 const init = async()=>{
-	
+	const promiseChain = []
+	// loading homepage information
+	promiseChain[0] = new Promise(async(resolve)=>{
+		const dataArr = await window.gl.init()
+		globalArr.preload = dataArr
+		resolve(true)
+	})
+	const output = await Promise.all(promiseChain)
+	if(output){
+		return true
+	}
 }
-init()
+const initStatus = init()
+if(initStatus){
+	globalArr.status.init = true
+}

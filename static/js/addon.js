@@ -22,32 +22,131 @@ const autoload = (config)=>{
 		}
 	}
 }
-
-// Partial Loader
-/*
-const load = async(event)=>{
-	const isPage = have(event,'page-btn')
-	if(isPage){
-		
-		const pageid = event.target.classList[1]
-			
-		const main = document.querySelector('.main-area')
-		const funcArea = main.parentNode
-		const funcid = funcArea.id
-		const func = funcid.substring(0,funcid.length-5)
-			
-		const path = func + '/' + pageid
-		const html = await window.gl.load(path)
-		if(html){
-			main.innerHTML = html		
-			autoload()
-			const output = new Promise((resolve)=>{
-				resolve(true)
-			})
-			return output
+// Extract key and value to array
+Object.destruct = (dict)=>{
+    const k = Object.keys(dict)
+    const v = Object.values(dict)
+    return [k,v]
+}
+// Deep copy
+Object.copy = (dict)=>{
+	const str = JSON.stringify(dict)
+	const newDict = JSON.parse(str)
+	return newDict
+}
+// Append array
+Object.append = (targetDict,inputDict)=>{
+    const dataArr = []
+    // Sorting data
+	const checklist = [String,Number,Object]
+	for(const k in inputDict){
+		let arr = inputDict[k]
+		const notFormat = checklist.indexOf(arr.constructor) + 1
+		if(notFormat){
+			arr = [arr]
+		}
+		for(var i=0;i<arr.length;i++){
+		    const v = arr[i]
+		    const dataDict = {}
+		    dataDict[k] = v
+		    
+		    dataArr[dataArr.length] = dataDict
 		}
 	}
-}*/
+	// Appending
+	for(var i=0;i<dataArr.length;i++){
+	    const dict = dataArr[i]
+	    for(const k in dict){
+	        const v = dict[k]
+	        
+	        const isExist = targetDict[k]
+	        if(isExist){
+	            let existedDict = targetDict[k]
+	            const isString = (existedDict.constructor == String) + (existedDict.constructor == Number)
+	            if(isString){
+	                existedDict = [existedDict]
+	            }
+	            existedDict[existedDict.length] = v
+	            targetDict[k] = existedDict
+	        }else{
+	            targetDict[k] = [v]
+	        }
+	    }
+	}
+}
+// Append prefix and affix to all elements in array
+Array.append = (list,prefix,affix,options={})=>{
+	const arr = Object.copy(list)
+    for(var i=0;i<arr.length;i++){
+        let e = arr[i]
+        const altArr = options[i]
+		
+		if(options['replace']){
+			/* {'replace':{'targetPos':['targetStr','replaceStr','execStr','passStr']}}
+				'targetPos':	The target position of array for replacing process
+				
+				'targetStr':	The string would be replaced
+				'replaceStr':	The string would be replaced with
+				'execStr':		If have,replace function only exec when target contains this specific string
+				'passStr':		If have,replace function would end when target contains this specific string 
+			*/
+			const replaceOpt = options['replace']
+			const replaceArr = replaceOpt[i]
+			
+			if(replaceArr){
+				if(e){
+					const targetStr = replaceArr[0]
+					const replaceStr = replaceArr[1]
+					const execStr = replaceArr[2]
+					const passStr = replaceArr[3]
+					let execStatus = true
+					if(passStr){
+						const isExist = e.indexOf(passStr) + 1
+						console.log(isExist)
+						if(isExist){
+							execStatus = false
+						}
+					}
+					
+					if(execStatus){
+						if(execStr){
+							const isExist = e.indexOf(execStr)+1
+							if(!isExist){
+								execStatus = false
+							}
+						}
+					}
+					if(execStatus){
+						e = e.replaceAll(targetStr,replaceStr)
+					}
+				}		
+			}	
+		}
+
+		const preStr = altArr ? altArr[0] : prefix
+		const affStr = altArr ? altArr[1] : affix
+        arr[i] = preStr + e + affStr
+		
+    }
+	return arr
+}
+// Extract assigned value from dictionary array
+Array.extract = (list,key)=>{
+	const arr = []
+	for(var i=0;i<list.length;i++){
+		const dict = list[i]
+		arr[i] = dict[key]
+	}
+	return arr
+}
+const optMaker = (arr)=>{
+	const optArr = []
+	for(var i=0;i<arr.length;i++){
+		const e = arr[i]
+		optArr[i] = `<option value='` + e + `'>` + e + `</option>`
+	}
+	return optArr.join('')
+}
 // Transform into money format
 const moneyFormat = (n,isInsert=false)=>{
 	n = n + ''
