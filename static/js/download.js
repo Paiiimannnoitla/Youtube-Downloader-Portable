@@ -10,11 +10,19 @@ const dlMain = ()=>{
 			// Download files
 			const isDownload = id == 'dl-btn'
 			if(isDownload){
+				const sqlArr = {
+					'cmd':`dir`
+				}
+				const res = await window.gl.cmd(sqlArr)
+				if(res){
+					console.log(res)
+				}
+				/*
 				const sqlArr = pack('dl-info')
 				const isFinished = await window.dl.download(sqlArr)
 				if(isFinished){
 					console.log(555)
-				}
+				}*/
 			}
 		}
 	})

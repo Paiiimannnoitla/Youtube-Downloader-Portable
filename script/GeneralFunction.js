@@ -3,8 +3,28 @@ const fs = require('fs')
 const path = require('path')
 const { env } = require('./extension.js')
 const { readdir } = require('fs/promises')
+const util = require('util')
+const exec = util.promisify(require('child_process').exec)
 
 const templatePath = './template'
+// Run cmd command
+ipcMain.handle('gl-cmd',(event,arr)=>{
+	const output = new Promise(async(resolve)=>{
+		console.log(arr)
+		const { cmd } = arr
+		const resDict = await exec(cmd)
+		if(resDict){
+			const { stdout:res,stderr:err } = resDict
+			console.log(res)
+			console.log(err)
+			const dataArr = {
+				'success':res,'error':err
+			}
+			resolve(dataArr)
+		}
+	})
+	return output
+})
 // Initialization loading
 ipcMain.handle('gl-init',async(event,arr='')=>{
 	const promiseChain = []

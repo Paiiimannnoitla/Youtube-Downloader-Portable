@@ -7,6 +7,7 @@
 ---
 	## 2024.10.25		version 0.0.0 -- main
 	-- Basic infrastructure building
+	-- Function implementation
 	# Added
 	1. Build a basic download page
 		-- finished
@@ -19,3 +20,5 @@
 			-- finished
 		2.4 Add promisify exec cmd function
 			-- finished
+	3. Add gl-cmd function
+		-- finished
