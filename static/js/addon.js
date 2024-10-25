@@ -247,7 +247,9 @@ const pack = (cls)=>{
 	
 	for(var i=0;i<nodeArr.length;i++){
 		const e = nodeArr[i]
+		const name = e.getAttribute('name')
 		const id = e.id
+		const key = name ? name : id
 		let v 
 		const isFile = e.type == 'file'
 		if(isFile){
@@ -255,7 +257,7 @@ const pack = (cls)=>{
 		}else{
 			v = e.value			
 		}
-		arr[id] = v
+		arr[key] = v
 	}
 	
 	return arr

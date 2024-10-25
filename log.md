@@ -11,4 +11,5 @@
 	2. Add download function
 		2.1 Add frontend structure
 			-- finished
-		
+		2.2 Apply pack function
+			-- finished

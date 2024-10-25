@@ -8,9 +8,10 @@ const dlMain = ()=>{
 		const isChannel = currPage == 'download'
 		if(isChannel){
 			// Download files
-			const isDownload = have(event,'dl-info')
+			const isDownload = id == 'dl-btn'
 			if(isDownload){
-				console.log(55)
+				const sqlArr = pack('dl-info')
+				console.log(sqlArr)
 			}
 		}
 	})
