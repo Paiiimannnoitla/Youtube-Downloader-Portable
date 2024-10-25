@@ -8,6 +8,10 @@ contextBridge.exposeInMainWorld('gl', {
 	config:			()		=> ipcRenderer.invoke('gl-config'),
 	init:			(arr)		=> ipcRenderer.invoke('gl-init')
 })
+// Download Function
+contextBridge.exposeInMainWorld('dl', {
+    download: 			()	=> ipcRenderer.invoke('dl-download')
+})
 
 // Setting Function
 contextBridge.exposeInMainWorld('st', {

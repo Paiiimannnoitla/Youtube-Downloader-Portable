@@ -2,11 +2,16 @@ const dlArr = {}
 const dlMain = ()=>{
 	const main = document.getElementById('dl-main')
 	main.addEventListener('click',async(event)=>{
-		const id = event.target.id
+		const e = event.target
+		const id = e.id
 		// Test channel
 		const isChannel = currPage == 'download'
 		if(isChannel){
-			console.log('click download')
+			// Download files
+			const isDownload = have(event,'dl-info')
+			if(isDownload){
+				console.log(55)
+			}
 		}
 	})
 }

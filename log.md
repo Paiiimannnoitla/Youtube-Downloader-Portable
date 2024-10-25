@@ -8,4 +8,7 @@
 	# Added
 	1. Build a basic download page
 		-- finished
+	2. Add download function
+		2.1 Add frontend structure
+			-- finished
 		

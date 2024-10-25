@@ -5,6 +5,7 @@ const { readdir,mkdir,writeFile } = require('fs/promises')
 const { env } = require('./script/extension.js')
 require('./script/GeneralFunction.js')
 require('./script/SettingFunction.js')
+require('./script/DownloadFunction.js')
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 app.allowRendererProcessReuse = false
