@@ -13,3 +13,6 @@
 			-- finished
 		2.2 Apply pack function
 			-- finished
+		2.3 Build the communication channel between frontend and backend
+			-- finished
+		

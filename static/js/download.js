@@ -11,7 +11,10 @@ const dlMain = ()=>{
 			const isDownload = id == 'dl-btn'
 			if(isDownload){
 				const sqlArr = pack('dl-info')
-				console.log(sqlArr)
+				const isFinished = await window.dl.download(sqlArr)
+				if(isFinished){
+					console.log(555)
+				}
 			}
 		}
 	})

@@ -10,7 +10,7 @@ contextBridge.exposeInMainWorld('gl', {
 })
 // Download Function
 contextBridge.exposeInMainWorld('dl', {
-    download: 			()	=> ipcRenderer.invoke('dl-download')
+    download: 			(arr)	=> ipcRenderer.invoke('dl-download',arr)
 })
 
 // Setting Function
